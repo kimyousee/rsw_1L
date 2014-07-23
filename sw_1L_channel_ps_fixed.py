@@ -94,7 +94,7 @@ cnt = 0
 # guess=freq[0,49]/kx + grow[0,49]*1j/kx
 guess = 0.21+0.09*1j
 
-for kx in kk[49:50]: #0:nk
+for kx in kk[0:nk]: 
 	k2 = kx**2
 
 	A = PETSc.Mat().createAIJ([3*Ny+1,3*Ny+1])
