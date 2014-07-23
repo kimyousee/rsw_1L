@@ -106,7 +106,7 @@ evalOut = open('eigVal.bin', 'wb+')
 cnt = 0
 guess=0.21+0.09*1j
 
-for kx in kk[49:50]: #0:nk
+for kx in kk[0:nk]: #0:91... might not converge near the end
 
 	k2 = kx**2
 
