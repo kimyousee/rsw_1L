@@ -17,6 +17,6 @@ sw_1L_channel_ps_newguess.py
 
 sw_1L_mat_free.py
 >Uses matrix free method, but only works in serial.
->Use these options: -eps_target 0.21,0.45 -nev 100 -eps_ncv 120 //nev has to change if you have a high Ny, default Ny=100
->lower tolerance to increase speed (more error though)
->eps will always go to max_it, you can reduce this if you find the amount of eigenvalues you want already.
+>Use these options: -eps_target 0.21,0.45 -nev 100 -eps_ncv 120 //nev has to change if you have a high Ny, default Ny=100.
+>Lower tolerance to increase speed (more error though).
+>EPS will always go to max_it, you can reduce this if you find the amount of eigenvalues you want already.
