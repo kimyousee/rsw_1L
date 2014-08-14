@@ -163,7 +163,7 @@ for kx in kk[0:nk]: #0:nk
 
         for j in range(start,end):
             mode[j,i,cnt] = 1j*vr[j].imag + vr[j].imag
-    print cnt,kx,(freq[:,cnt]+grow[:,cnt]*1j)/kx
+    Print(cnt,kx,(freq[:,cnt]+grow[:,cnt]*1j)/kx)
     cnt = cnt+1
 
 grow.tofile(grOut)
