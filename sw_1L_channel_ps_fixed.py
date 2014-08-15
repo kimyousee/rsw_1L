@@ -5,9 +5,7 @@ from slepc4py import SLEPc
 import numpy as np
 import scipy as sc
 import scipy.sparse as sp
-#import rsw_1L_fxs as fx
 import matplotlib.pyplot as plt
-from itertools import izip_longest
 
 rank = PETSc.COMM_WORLD.Get_rank()
 Print = PETSc.Sys.Print
@@ -62,7 +60,7 @@ Ap.setSizes([3*Ny+1, 3*Ny+1]); Ap.setFromOptions(); Ap.setUp()
 start,end = Ap.getOwnershipRange()
 
 # Set up all parts of A except Blocks A10 and A12 (set up the ones that don't use kx)
-for i in range(start,end):
+for i in xrange(start,end):
 	if (0 <= i <= Ny): #first row; Ny+1
 		Ap[i,i] = U[i]
 		Ap[i, 2*Ny+i] = g0 #Block A02
@@ -102,7 +100,7 @@ for kx in kk[0:nk]:
 	A = Ap.copy()
 	start,end = A.getOwnershipRange()
 
-	for i in range(start,end):
+	for i in xrange(start,end):
 		if Ny+1 <= i < 2*Ny:
 			cols1 = i-Ny # goes from 1-Ny
 			cols3 = i+Ny-1 #goes from Ny+1 :
@@ -134,7 +132,7 @@ for kx in kk[0:nk]:
 	if nconv <= nEV: evals = nconv
 	else: evals = nEV
 
-	for i in range(evals):
+	for i in xrange(evals):
 		eigVal = E.getEigenvalue(i)
 		grow[i,cnt] = eigVal.imag*kx
 		freq[i,cnt] = eigVal.real*kx
@@ -150,12 +148,12 @@ for kx in kk[0:nk]:
 		if start == 0: mode[0,i,cnt] = 0; start+=1
 		if end == Ny: mode[Ny,i,cnt] = 0; end -=1
 
-		for j in range(start,end):
+		for j in xrange(start,end):
 			mode[j,i,cnt] = 1j*vi[j]; mode[j,i,cnt] = vr[j]
 			if rank == 0:
 				mode[j,i,cnt].tofile(mdOut)#print >>mdOut, mode[j, i, cnt]
 
-	print cnt,kx,(freq[:,cnt]+grow[:,cnt]*1j)/kx
+	Print(cnt,kx,(freq[:,cnt]+grow[:,cnt]*1j)/kx)
 	#newGuess = freq[0,cnt]/kx + grow[0,cnt]*1j
 	#if newGuess == 0: newGuess = 0.3
 	cnt = cnt+1
