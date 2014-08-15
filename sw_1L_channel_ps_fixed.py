@@ -115,10 +115,10 @@ for kx in kk[0:nk]:
 	E.setOperators(A); E.setDimensions(nEV, SLEPc.DECIDE)
 	#E.setTarget(0.55203)
 	#E.setType(SLEPc.EPS.Type.LAPACK)
-	E.setBalance(2) #SLEPc.EPS.Balance.ONESIDE
+	#E.setBalance(2) #SLEPc.EPS.Balance.ONESIDE
 	E.setProblemType(SLEPc.EPS.ProblemType.NHEP);E.setFromOptions()
 	E.setWhichEigenpairs(SLEPc.EPS.Which.LARGEST_IMAGINARY)
-	E.setTolerances(max_it=500)
+	E.setTolerances(1e-8,max_it=100)
 	
 	sinv.setType('sinvert')
 	sinv.setShift(guess)
