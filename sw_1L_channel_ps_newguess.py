@@ -5,9 +5,7 @@ from slepc4py import SLEPc
 import numpy as np
 import scipy as sc
 import scipy.sparse as sp
-#import rsw_1L_fxs as fx
 import matplotlib.pyplot as plt
-from itertools import izip_longest
 
 ## Code for changing guess to be the previous one just computed.
 ## Starts at 84 then goes up to 200 (or 199)
@@ -66,7 +64,7 @@ Ap = PETSc.Mat().create()
 Ap.setSizes([3*Ny+1, 3*Ny+1]); Ap.setFromOptions(); Ap.setUp()
 start,end = Ap.getOwnershipRange()
 
-for i in range(start,end):
+for i in xrange(start,end):
 	if (0 <= i <= Ny): #first row; Ny+1
 		Ap[i,i] = U[i]
 		Ap[i, 2*Ny+i] = g0 #Block A02
@@ -108,7 +106,7 @@ for kx in kk[84:nk]: # Start at 84 and go right
 	A = Ap.copy()
 	start,end = A.getOwnershipRange()
 
-	for i in range(start,end):
+	for i in xrange(start,end):
 		if Ny+1 <= i < 2*Ny:
 			cols1 = i-Ny # goes from 1-Ny
 			cols3 = i+Ny-1 #goes from Ny+1 :
@@ -141,7 +139,7 @@ for kx in kk[84:nk]: # Start at 84 and go right
 	if nconv <= nEV: evals = nconv
 	else: evals = nEV
 
-	for i in range(evals):
+	for i in xrange(evals):
 		eigVal = E.getEigenvalue(i)
 		grow[i,cnt] = eigVal.imag*kx
 		freq[i,cnt] = eigVal.real*kx
@@ -157,7 +155,7 @@ for kx in kk[84:nk]: # Start at 84 and go right
 		if start == 0: mode[0,i,cnt] = 0; start+=1
 		if end == Ny: mode[Ny,i,cnt] = 0; end -=1
 
-		for j in range(start,end):
+		for j in xrange(start,end):
 			mode[j,i,cnt] = 1j*vi[j]; mode[j,i,cnt] = vr[j]
 			if rank == 0:
 				mode[j,i,cnt].tofile(mdOut)
@@ -180,7 +178,7 @@ for kx in kk[83::-1]: # Start at 83 and go left
 	A = Ap.copy()
 	start,end = A.getOwnershipRange()
 
-	for i in range(start,end):
+	for i in xrange(start,end):
 		if Ny+1 <= i < 2*Ny:
 			cols1 = i-Ny # goes from 1-Ny
 			cols3 = i+Ny-1 #goes from Ny+1 :
@@ -213,7 +211,7 @@ for kx in kk[83::-1]: # Start at 83 and go left
 	if nconv <= nEV: evals = nconv
 	else: evals = nEV
 
-	for i in range(evals):
+	for i in xrange(evals):
 		eigVal = E.getEigenvalue(i)
 		grow[i,cnt] = eigVal.imag*kx
 		freq[i,cnt] = eigVal.real*kx
@@ -229,7 +227,7 @@ for kx in kk[83::-1]: # Start at 83 and go left
 		if start == 0: mode[0,i,cnt] = 0; start+=1
 		if end == Ny: mode[Ny,i,cnt] = 0; end -=1
 
-		for j in range(start,end):
+		for j in xrange(start,end):
 			mode[j,i,cnt] = 1j*vi[j]; mode[j,i,cnt] = vr[j]
 			if rank == 0:
 				mode[j,i,cnt].tofile(mdOut)#print >>mdOut, mode[j, i, cnt]
