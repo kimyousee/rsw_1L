@@ -21,3 +21,6 @@ sw_1L_mat_free.py
 >Use these options: -eps_target 0.21,0.45 -nev 100 -eps_ncv 120 //nev has to change if you have a high Ny, default Ny=100.
 >Lower tolerance to increase speed (more error though).
 >EPS will always go to max_it, you can reduce this if you find the amount of eigenvalues you want already.
+
+rsw_1L_ps_fixed_io.py
+> Creates files to store parameters, eigenvalues, and eigenvectors. After running this, run read_rsw_1L.py to see the plot
