@@ -5,9 +5,7 @@ from slepc4py import SLEPc
 import numpy as np
 import scipy as sc
 import scipy.sparse as sp
-#import rsw_1L_fxs as fx
 import matplotlib.pyplot as plt
-from itertools import izip_longest
 import os
 
 ## Code for using petsc4py and slepc4py. This code uses a fixed guess
@@ -152,9 +150,6 @@ for kx in kk[0:nk]: #0:nk
         grow[i,cnt] = eigVal.imag*kx
         freq[i,cnt] = eigVal.real*kx
 
-        if rank == 0:
-            plt.plot(np.arange(0,nk), grow[i,:]*3600*24, 'o')
-
         eigVec=E.getEigenvector(i,vr,vi)
 
         start,end = vi.getOwnershipRange()
@@ -174,12 +169,4 @@ kk.tofile(kkFile)
 evalsArr.tofile(evalsFile)
 data.close(); grOut.close();frOut.close();mdOut.close();kkFile.close()
 evalsFile.close()
-
-if rank == 0:
-    ky = np.pi/Ly
-    plt.ylabel('1/day')
-    plt.xlabel('k/dk')
-    plt.title('Growth Rate: 1-Layer SW')
-    plt.savefig('Grow1L_SW.eps', format='eps', dpi=1000)
-    #plt.show()
 
