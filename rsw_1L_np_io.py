@@ -82,7 +82,7 @@ A1[2*Ny+1, Ny+1:Ny+3] =     [dH[0,1],0] + HDy[1,1:3]
 A1[3*Ny-1, 2*Ny-2:2*Ny] =   [0,dH[0,Ny-1]] + HDy[Ny-1,Ny-2:Ny]
 A1[3*Ny,   2*Ny-1] =        HDy[Ny,Ny-1]
 
-for ii in range(1,Ny):
+for ii in xrange(1,Ny):
     A1[ii,ii]      = U[ii]
     A1[ii,Ny+ii]   = dU[ii] - f0
     A1[ii,2*Ny+ii] = g0
@@ -98,7 +98,7 @@ for ii in range(1,Ny):
 sp.dia_matrix(A1)
 
 A2 = np.zeros([3*Ny+1, 3*Ny+1])
-for ii in range(1,Ny):
+for ii in xrange(1,Ny):
     A2[Ny+ii,ii] = -f0
     A2[Ny+ii,2*Ny+ii-1:2*Ny+ii+2] = -g0*Dy[ii,ii-1:ii+2]
 sp.dia_matrix(A2)
@@ -129,10 +129,10 @@ for kx in kk[0:nk]: #0:nk
     else: evals = len(eigVals)
     evalsArr[cnt] = evals
 
-    for i in range(evals):
+    for i in xrange(evals):
         grow[i,cnt] = np.imag(eigVals[i])*kx
         freq[i,cnt] = np.real(eigVals[i])*kx
-        for j in range(eigVals.shape[0]):
+        for j in xrange(eigVals.shape[0]):
             mode[j,i,cnt] = eigVecs[j,i]
     cnt = cnt+1
 
