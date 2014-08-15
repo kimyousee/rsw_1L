@@ -79,7 +79,7 @@ A1[2*Ny+1, Ny+1:Ny+3] = 	[dH[0,1],0] + HDy[1,1:3]
 A1[3*Ny-1, 2*Ny-2:2*Ny] = 	[0,dH[0,Ny-1]] + HDy[Ny-1,Ny-2:Ny]
 A1[3*Ny,   2*Ny-1] = 		HDy[Ny,Ny-1]
 
-for ii in range(1,Ny):
+for ii in xrange(1,Ny):
 	A1[ii,ii]      = U[ii]
 	A1[ii,Ny+ii]   = dU[ii] - f0
 	A1[ii,2*Ny+ii] = g0
@@ -95,7 +95,7 @@ for ii in range(1,Ny):
 sp.dia_matrix(A1)
 
 A2 = np.zeros([3*Ny+1, 3*Ny+1])
-for ii in range(1,Ny):
+for ii in xrange(1,Ny):
 	A2[Ny+ii,ii] = -f0
 	A2[Ny+ii,2*Ny+ii-1:2*Ny+ii+2] = -g0*Dy[ii,ii-1:ii+2]
 sp.dia_matrix(A2)
@@ -129,7 +129,7 @@ for kx in kk[0:nk]: #0:91... might not converge near the end
 	print evals_all[:]
 	if len(evals_all)>nEV: evals=nEV
 	else: evals = len(evals_all)
-	for i in range(evals):
+	for i in xrange(evals):
 		grow[i,cnt] = np.imag(evals_all[i])*kx
 		freq[i,cnt] = np.real(evals_all[i])*kx
 		plt.plot(np.arange(0,nk),grow[i,:]*3600*24, 'o')
